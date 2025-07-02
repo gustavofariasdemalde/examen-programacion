@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administradores - Agregar Usuario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="adminLoginContainer">
+        <h1>Acceso Administrador</h1>
+        <form id="adminLoginForm">
+            <label for="adminDni">Ingrese clave de administrador:</label><br>
+            <input type="password" id="adminDni" name="adminDni" maxlength="8" required placeholder="Clave"><br><br>
+            <button type="submit">Ingresar</button>
+        </form>
+        <div id="adminLoginMsg"></div>
+        <button onclick="window.location.href='home.html'" class="small-btn">Volver</button>
+    </div>
+    <div class="container" id="dniPanelContainer" style="display:none;">
+        <h1>Autorizar Usuario</h1>
+        <form id="dniForm">
+            <label for="dni">Ingrese DNI del usuario a autorizar:</label><br>
+            <input type="text" name="dni" id="dni" required placeholder="DNI" maxlength="8"><br><br>
+            <button type="submit">Autorizar</button>
+        </form>
+        <div id="dniMsg"></div>
+        <button onclick="window.location.href='home.html'" class="small-btn">Volver al inicio</button>
+    </div>
+    <div class="container" id="adminPanelContainer" style="display:none;">
+        <h1>Agregar Usuario</h1>
+        <form id="adminAddUserForm">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" name="nombre" id="nombre" required placeholder="Nombre"><br><br>
+            <label for="correo">Correo electrónico:</label><br>
+            <input type="email" name="correo" id="correo" required placeholder="Correo electrónico"><br><br>
+            <input type="hidden" name="dni" id="dniHidden">
+            <label>Tipo de usuario:</label><br>
+            <input type="radio" name="tipo" value="profesor" required title="Profesor" placeholder="Profesor"> Profesor
+            <input type="radio" name="tipo" value="alumno" required title="Alumno" placeholder="Alumno"> Alumno
+            <input type="radio" name="tipo" value="admin" required title="Administrador" placeholder="Administrador"> Administrador<br><br>
+            <button type="submit">Agregar usuario</button>
+        </form>
+        <div id="adminMsg"></div>
+        <button onclick="window.location.href='home.html'" class="small-btn">Volver al inicio</button>
+    </div>
+    <div class="container" id="eliminarReservaContainer" style="display:none;">
+        <h1>Eliminar Reserva</h1>
+        <div id="tablaReservasAdmin"></div>
+        <button onclick="window.location.href='home.html'" class="small-btn">Volver al inicio</button>
+    </div>
+    <script>
+    // Acceso administrador
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const clave = document.getElementById('adminDni').value;
+        const msg = document.getElementById('adminLoginMsg');
+        if (clave !== 'admin') {
+            msg.innerHTML = '<span style="color:red">Clave incorrecta</span>';
+            return;
+        }
+        document.getElementById('adminLoginContainer').style.display = 'none';
+        document.getElementById('dniPanelContainer').style.display = 'block';
+        document.getElementById('eliminarReservaContainer').style.display = 'block';
+        cargarReservasAdmin();
+    });
+    // Autorizar usuario por DNI
+    document.getElementById('dniForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const dni = document.getElementById('dni').value;
+        const msg = document.getElementById('dniMsg');
+        if (!/^\d{8}$/.test(dni)) {
+            msg.innerHTML = '<span style="color:red">El DNI debe tener 8 dígitos numéricos</span>';
+            return;
+        }
+        try {
+            const res = await fetch(`/api/usuarios/${dni}`);
+            if (res.ok) {
+                msg.innerHTML = '<span style="color:red">El usuario ya está registrado</span>';
+            } else {
+                // Agregar usuario solo con DNI
+                const addRes = await fetch('/api/usuarios', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre: '', correo: '', dni, tipo: 'alumno' })
+                });
+                if (addRes.ok) {
+                    msg.innerHTML = '<span style="color:green">Usuario autorizado</span>';
+                } else {
+                    msg.innerHTML = '<span style="color:red">Error al autorizar usuario</span>';
+                }
+            }
+        } catch (err) {
+            msg.innerHTML = '<span style="color:red">Error de conexión</span>';
+        }
+    });
+    // Agregar usuario
+    document.getElementById('adminAddUserForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const dni = document.getElementById('dniHidden').value;
+        const nombre = document.getElementById('nombre').value;
+        const correo = document.getElementById('correo').value;
+        const tipo = document.querySelector('input[name="tipo"]:checked').value;
+        try {
+            const res = await fetch('/api/usuarios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, correo, dni, tipo })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                document.getElementById('adminMsg').innerHTML = '<span style="color:green">Usuario agregado correctamente</span>';
+                this.reset();
+            } else {
+                document.getElementById('adminMsg').innerHTML = '<span style="color:red">' + (data.error || 'Error al agregar usuario') + '</span>';
+            }
+        } catch (err) {
+            document.getElementById('adminMsg').innerHTML = '<span style="color:red">Error de conexión</span>';
+        }
+    });
+    // Eliminar reservas
+    async function cargarReservasAdmin() {
+        const tablaDiv = document.getElementById('tablaReservasAdmin');
+        tablaDiv.innerHTML = 'Cargando reservas...';
+        try {
+            const res = await fetch('/api/reservas');
+            const reservas = await res.json();
+            if (!Array.isArray(reservas) || reservas.length === 0) {
+                tablaDiv.innerHTML = '<span style="color:gray">No hay reservas registradas.</span>';
+                return;
+            }
+            let html = `<table class='tabla-azul' style='width:100%;margin-top:20px;'>
+                <thead><tr><th>Tipo</th><th>Nombre</th><th>DNI</th><th>Correo</th><th>Laboratorio</th><th>Fecha</th><th>Hora</th><th>Acción</th></tr></thead><tbody>`;
+            for (const r of reservas) {
+                html += `<tr>
+                    <td>${r.tipo}</td>
+                    <td>${r.nombre}</td>
+                    <td>${r.dni}</td>
+                    <td>${r.correo}</td>
+                    <td>${r.laboratorio}</td>
+                    <td>${r.fecha}</td>
+                    <td>${r.hora}</td>
+                    <td><button onclick="eliminarReserva('${r.laboratorio}','${r.fecha}','${r.hora}')" style='background:#dc3545'>Eliminar</button></td>
+                </tr>`;
+            }
+            html += '</tbody></table>';
+            tablaDiv.innerHTML = html;
+        } catch (err) {
+            tablaDiv.innerHTML = '<span style="color:red">Error cargando reservas</span>';
+        }
+    }
+    async function eliminarReserva(laboratorio, fecha, hora) {
+        if (!confirm('¿Está seguro de eliminar esta reserva?')) return;
+        try {
+            const res = await fetch('/api/reservas', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ laboratorio, fecha, hora })
+            });
+            if (res.ok) {
+                cargarReservasAdmin();
+            } else {
+                alert('No se pudo eliminar la reserva');
+            }
+        } catch (err) {
+            alert('Error de conexión');
+        }
+    }
+    </script>
+</body>
+</html> 

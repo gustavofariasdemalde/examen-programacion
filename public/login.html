@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Reserva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Realizar reservas</h1>
+        <form id="loginForm">
+            <label>Tipo de usuario:</label><br>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" name="tipo" value="profesor" required title="Profesor"> <span>Profesor</span>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="tipo" value="alumno" required title="Alumno"> <span>Alumno</span>
+                </div>
+            </div>
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" name="nombre" id="nombre" required placeholder="Nombre"><br><br>
+            <label for="dni">DNI:</label><br>
+            <input type="text" name="dni" id="dni" required placeholder="DNI" maxlength="8" pattern="\d{8}" title="Ingrese 8 dígitos numéricos"><br><br>
+            <label for="correo">Correo electrónico:</label><br>
+            <input type="email" name="correo" id="correo" required placeholder="Correo electrónico"><br><br>
+            <button type="submit">Continuar</button>
+        </form>
+        <button onclick="window.location.href='home.html'" class="small-btn">Volver</button>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 

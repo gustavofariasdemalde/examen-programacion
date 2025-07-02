@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Reservas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="home-flex">
+        <div class="home-img">
+            <img src="logo.png" alt="Logo UNRAF" />
+        </div>
+        <div class="container home-content">
+            <h1>BIENVENIDOS A LA APLICACIÓN DE RESEVAS DE LABORATORIOS UNRAF</h1>
+            <div id="mensaje"></div>
+            <button class="small-btn" onclick="window.location.href='listado.html'">Ver reservas</button>
+            <button class="small-btn" onclick="window.location.href='login.html'">Gestionar reservas</button>
+            <button class="small-btn" onclick="window.location.href='admin.html'">Administradores</button>
+        </div>
+    </div>
+    <script>
+    // Mostrar mensaje de éxito si viene de una reserva
+    const params = new URLSearchParams(window.location.search);
+    if(params.get('reserva') === 'ok') {
+        document.getElementById('mensaje').innerHTML = '<span style="color:green">¡Reserva realizada con éxito!</span>';
+    }
+    </script>
+</body>
+</html> 

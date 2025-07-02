@@ -1,0 +1,11 @@
+[
+  {
+    "tipo": "alumno",
+    "nombre": "Gustavo Farias",
+    "dni": "22054729",
+    "correo": "fariasdemaldegustavo@gmail.com",
+    "laboratorio": "LAB 1",
+    "fecha": "2025-07-30",
+    "hora": "08:00"
+  }
+]

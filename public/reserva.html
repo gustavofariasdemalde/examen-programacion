@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Laboratorio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Reservar Laboratorio</h1>
+        <form id="reservaForm">
+            <label for="laboratorio">Laboratorio:</label><br>
+            <select name="laboratorio" id="laboratorio" required title="Seleccione un laboratorio">
+                <option value="LAB 1">LAB 1</option>
+                <option value="LAB 2">LAB 2</option>
+                <option value="LAB 3">LAB 3</option>
+                <option value="LAB 4">LAB 4</option>
+            </select><br><br>
+            <label for="fecha">Fecha:</label><br>
+            <input type="date" name="fecha" id="fecha" required title="Seleccione la fecha"><br><br>
+            <label for="hora">Hora:</label><br>
+            <input type="time" name="hora" id="hora" required title="Seleccione la hora" min="08:00" max="21:00" step="3600"><br><br>
+            <button type="submit">Confirmar Reserva</button>
+        </form>
+        <button onclick="window.location.href='home.html'" class="small-btn">Volver</button>
+        <div style="margin-top:20px;color:#0056b3;font-size:15px;text-align:center;">Si desea cancelar la reserva debe comunicarse con la universidad.</div>
+        <div id="mensaje"></div>
+    </div>
+    <script src="reserva.js"></script>
+</body>
+</html> 

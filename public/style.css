@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    color: #d400ff;
+    text-align: center;
+    margin-top: 40px;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 2px solid #e600ff;
+    overflow-x: auto;
+}
+
+/* NUEVO: Layout para home con imagen a la izquierda */
+.home-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 40px;
+}
+.home-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 30px;
+    height: 320px;
+}
+.home-img img {
+    max-width: 180px;
+    max-height: 220px;
+    object-fit: contain;
+}
+.home-content {
+    min-width: 350px;
+}
+
+/* Botones más pequeños */
+.small-btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    width: 80%;
+    margin: 8px auto;
+    display: block;
+}
+
+input, button {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 16px 0;
+    border: 1px solid #706666;
+    border-radius: 4px;
+}
+button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+}
+button:hover {
+    background: #0056b3;
+}
+label {
+    color: #0056b3;
+    font-weight: bold;
+}
+.tabla-azul th {
+    background: #007bff;
+    color: #fff;
+}
+.tabla-azul td {
+    background: #e9f2fb;
+}
+.tabla-azul {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin: 0 auto;
+}
+.tabla-azul th, .tabla-azul td {
+    padding: 8px 12px;
+    border: 1px solid #b3d7f5;
+}
+
+/* Alinear radio buttons y sus labels */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+input[type="radio"] {
+    accent-color: #007bff;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+@media (max-width: 950px) {
+  .container {
+    max-width: 99vw;
+    padding: 10px;
+  }
+  .tabla-azul {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    max-width: 99vw;
+    margin: 10px auto;
+    padding: 10px 2vw;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 15px;
+  }
+  h1 {
+    font-size: 1.3em;
+    margin-top: 20px;
+    margin-bottom: 18px;
+  }
+  label {
+    font-size: 1em;
+  }
+  input, button, select {
+    font-size: 1em;
+    padding: 10px 8px;
+    margin: 8px 0 14px 0;
+  }
+  .small-btn, button {
+    width: 100%;
+    min-width: 0;
+    font-size: 1em;
+    padding: 12px 0;
+  }
+  .tabla-azul {
+    min-width: 400px;
+    font-size: 0.95em;
+  }
+  .home-flex {
+    flex-direction: column;
+    gap: 10px;
+    min-height: unset;
+  }
+  .home-img {
+    padding: 10px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .home-content {
+    min-width: 0;
+    width: 100%;
+  }
+} 
