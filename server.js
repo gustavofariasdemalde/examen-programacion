@@ -32,7 +32,9 @@ app.get('/api/reservas/futuras', (req, res) => {
             const diff = (fechaReserva - hoy) / (1000 * 60 * 60 * 24);
             return diff >= 0 && diff <= 30;
         });
-        res.json(reservasFuturas);
+        // Eliminar el campo dni de cada reserva futura
+        const reservasSinDni = reservasFuturas.map(({ dni, ...rest }) => rest);
+        res.json(reservasSinDni);
     });
 });
 

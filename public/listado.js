@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             <tr>
                 <td>${r.tipo}</td>
                 <td>${r.nombre}</td>
-                <td>${r.dni}</td>
                 <td>${r.correo}</td>
                 <td>${r.laboratorio}</td>
                 <td>${r.fecha}</td>
