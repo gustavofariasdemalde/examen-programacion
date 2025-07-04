@@ -58,11 +58,11 @@ app.post('/api/reservas', (req, res) => {
                     service: 'gmail',
                     auth: {
                         user: 'fariasdemaldegustavo@gmail.com',
-                        pass: 'tu_contraseña'
+                        pass: 'cles wvmp plar nept'
                     }
                 });
                 const mailOptions = {
-                    from: 'tucorreo@gmail.com',
+                    from: 'fariasdemaldegustavo@gmail.com',
                     to: nuevaReserva.correo,
                     subject: 'Confirmación de Reserva de Laboratorio',
                     text: `Hola ${nuevaReserva.nombre},\n\nTu reserva para el ${nuevaReserva.laboratorio} el día ${nuevaReserva.fecha} a las ${nuevaReserva.hora} ha sido confirmada.\n\nGracias.`
