@@ -32,15 +32,22 @@
                 <div class="lab-desc"><strong>LAB 1:</strong> cuenta con 12 computadoras de escritorio</div>
                 <div class="lab-desc"><strong>LAB 2:</strong> cuenta con 10 computadoras de escritorio</div>
                 <div class="lab-desc"><strong>LAB 3:</strong> cuenta con 8 computadoras de escritorio</div>
-                <div class="lab-desc"><strong>LAB 4:</strong> cuenta con materiales electrónicos y de medición y placas de desarrollo</div>
+                <div class="lab-desc"><strong>LAB 4:</strong> cuenta con materiales electrónicos, de medición y placas de desarrollo</div>
             </div>
         </div>
+    </div>
+    <div id="reserva-exito" class="reserva-exito" style="display:none;">
+        ¡Reserva realizada con éxito!
     </div>
     <script>
     // Mostrar mensaje de éxito si viene de una reserva
     const params = new URLSearchParams(window.location.search);
     if(params.get('reserva') === 'ok') {
-        alert('¡Reserva realizada con éxito!');
+        const exito = document.getElementById('reserva-exito');
+        exito.style.display = 'flex';
+        setTimeout(() => {
+            exito.style.display = 'none';
+        }, 10500);
     }
     </script>
 </body>
