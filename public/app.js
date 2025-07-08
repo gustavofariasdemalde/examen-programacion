@@ -25,8 +25,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 }); 
 
-// Lista de usuarios permitidos (puedes editar o ampliar)
-const usuariosPermitidos = [
-    { tipo: "alumno", nombre: "Juan", dni: "12345678", correo: "juan@mail.com" },
-    { tipo: "profesor", nombre: "Ana", dni: "87654321", correo: "ana@mail.com" }
-]; 

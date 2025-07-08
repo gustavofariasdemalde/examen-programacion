@@ -180,4 +180,136 @@ input[type="radio"] {
     min-width: 0;
     width: 100%;
   }
+}
+
+/* --- HOME NUEVO DISEÑO --- */
+.home-rect {
+    margin-top: 60px;
+    padding: 0 0 60px 0;
+    position: relative;
+    min-height: 500px;
+}
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 24px 32px 0 32px;
+    position: relative;
+}
+.home-logo img {
+    max-width: 270px;
+    max-height: 270px;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    background: #fff;
+}
+.home-menu {
+    position: relative;
+    z-index: 10;
+}
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+}
+.menu-icon span {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 3px 0;
+    background: #d400ff;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+#menu-toggle {
+    display: none;
+}
+.menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 44px;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    min-width: 180px;
+    display: none;
+    flex-direction: column;
+    border: 1.5px solid #e600ff;
+}
+.menu-list li {
+    border-bottom: 1px solid #eee;
+}
+.menu-list li:last-child {
+    border-bottom: none;
+}
+.menu-list a {
+    display: block;
+    padding: 14px 22px;
+    color: #d400ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+.menu-list a:hover {
+    background: #f4e6ff;
+    color: #0056b3;
+}
+#menu-toggle:checked + .menu-icon + .menu-list {
+    display: flex;
+}
+.home-title {
+    text-align: center;
+    color: #d400ff;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin-top: 30px;
+    margin-bottom: 36px;
+    font-size: 2.1em;
+    font-weight: 700;
+}
+.lab-descriptions {
+    margin: 0 auto;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.lab-desc {
+    background: #f4e6ff;
+    border-left: 5px solid #d400ff;
+    padding: 18px 22px;
+    border-radius: 6px;
+    font-size: 1.15em;
+    color: #333;
+    box-shadow: 0 1px 4px rgba(212,0,255,0.04);
+}
+@media (max-width: 700px) {
+  .home-header {
+    flex-direction: row;
+    padding: 12px 8px 0 8px;
+  }
+  .home-logo img {
+    max-width: 120px;
+    max-height: 120px;
+  }
+  .home-title {
+    font-size: 1.2em;
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+  .lab-descriptions {
+    max-width: 99vw;
+    gap: 10px;
+  }
+  .lab-desc {
+    font-size: 1em;
+    padding: 10px 10px;
+  }
 } 

@@ -3,27 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicación de Reservas</title>
+    <title>Sitio de Reservas de Laboratorio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="home-flex">
-        <div class="home-img">
-            <img src="logo.png" alt="Logo UNRAF" />
+    <div class="container home-rect">
+        <div class="home-header">
+            <div class="home-logo">
+                <img src="image.png" alt="Logo Laboratorio" />
+            </div>
+            <div class="home-menu">
+                <input type="checkbox" id="menu-toggle" />
+                <label for="menu-toggle" class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <ul class="menu-list">
+                    <li><a href="listado.html">Ver reservas</a></li>
+                    <li><a href="login.html">Gestionar reservas</a></li>
+                    <li><a href="admin.html">Administradores</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="container home-content">
-            <h1>BIENVENIDOS A LA APLICACIÓN DE RESERVAS DE LABORATORIOS UNRaf</h1>
-            <div id="mensaje"></div>
-            <button class="small-btn" onclick="window.location.href='listado.html'">Ver reservas</button>
-            <button class="small-btn" onclick="window.location.href='login.html'">Gestionar reservas</button>
-            <button class="small-btn" onclick="window.location.href='admin.html'">Administradores</button>
+        <div class="home-main">
+            <h1 class="home-title">Sitio de reservas de laboratorio</h1>
+            <div class="lab-descriptions">
+                <div class="lab-desc"><strong>LAB 1:</strong> cuenta con 12 computadoras de escritorio</div>
+                <div class="lab-desc"><strong>LAB 2:</strong> cuenta con 10 computadoras de escritorio</div>
+                <div class="lab-desc"><strong>LAB 3:</strong> cuenta con 8 computadoras de escritorio</div>
+                <div class="lab-desc"><strong>LAB 4:</strong> cuenta con materiales electrónicos y de medición y placas de desarrollo</div>
+            </div>
         </div>
     </div>
     <script>
     // Mostrar mensaje de éxito si viene de una reserva
     const params = new URLSearchParams(window.location.search);
     if(params.get('reserva') === 'ok') {
-        document.getElementById('mensaje').innerHTML = '<span style="color:green">¡Reserva realizada con éxito!</span>';
+        alert('¡Reserva realizada con éxito!');
     }
     </script>
 </body>
