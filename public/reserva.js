@@ -1,3 +1,5 @@
+// reserva.js - Lógica de la página de reservas
+// Este archivo gestiona el envío del formulario de reserva y la interacción con el backend
 document.addEventListener('DOMContentLoaded', () => {
     const reservaForm = document.getElementById('reservaForm');
     const mensaje = document.getElementById('mensaje');
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             if (res.ok) {
+                // Si la reserva es exitosa, redirige a la página principal con un mensaje de éxito
                 window.location.href = '/?reserva=ok';
             } else {
                 mensaje.innerHTML = '<span style="color:red">' + (data.error || 'Error al reservar') + '</span>';

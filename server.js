@@ -1,3 +1,5 @@
+// server.js - Servidor principal de la aplicación
+// Este archivo gestiona las rutas, la lógica de reservas y usuarios, y sirve los archivos estáticos
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -11,8 +13,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+// Redirección de la raíz a la página principal (index.html)
 app.get('/', (req, res) => {
-    res.redirect('/');
+    res.sendFile(__dirname + '/public/index.html'); // Servimos la página principal
 });
 
 app.get('/api/reservas', (req, res) => {
