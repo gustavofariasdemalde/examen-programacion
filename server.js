@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.redirect('/home.html');
+    res.redirect('/');
 });
 
 app.get('/api/reservas', (req, res) => {

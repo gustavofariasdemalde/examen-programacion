@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             if (res.ok) {
-                window.location.href = 'home.html?reserva=ok';
+                window.location.href = '/?reserva=ok';
             } else {
                 mensaje.innerHTML = '<span style="color:red">' + (data.error || 'Error al reservar') + '</span>';
             }
