@@ -1,23 +1,23 @@
 // server.js - Servidor principal de la aplicación
 // Este archivo gestiona las rutas, la lógica de reservas y usuarios, y sirve los archivos estáticos
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
-const app = express();
+const express = require('express'); // framework web
+const fs = require('fs'); // leeer y escribir archivos
+const path = require('path'); //ruta
+const nodemailer = require('nodemailer');// correo
+const cors = require('cors'); // seguridad para la api
+const app = express(); //configuración de app express
 const PORT = process.env.PORT || 3000;
 const USERS_FILE = 'usuarios.json';
-
-app.use(express.json());
+// configuraciones del servidor
+app.use(express.json()); //para recibirpaticiones en json
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors()); // peticiones de cualquier lugar
 
 // Redirección de la raíz a la página principal (index.html)
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html'); // Servimos la página principal
+    res.sendFile(__dirname + '/public/index.html'); // redirecciona a la página principal
 });
-
+// obtener reservas
 app.get('/api/reservas', (req, res) => {
     fs.readFile('reservas.json', 'utf8', (err, data) => {
         if (err) return res.status(500).json({ error: 'Error leyendo reservas' });
@@ -40,7 +40,7 @@ app.get('/api/reservas/futuras', (req, res) => {
         res.json(reservasSinDni);
     });
 });
-
+// guarda nueva reserva, si esta autorizado lo agrega en reservas.json
 app.post('/api/reservas', (req, res) => {
     const nuevaReserva = req.body;
     fs.readFile(USERS_FILE, 'utf8', (err, data) => {
@@ -80,7 +80,7 @@ app.post('/api/reservas', (req, res) => {
         });
     });
 });
-
+//  gurdar nuevo usuario
 app.post('/api/usuarios', (req, res) => {
     const nuevoUsuario = req.body;
     fs.readFile(USERS_FILE, 'utf8', (err, data) => {
@@ -97,7 +97,7 @@ app.post('/api/usuarios', (req, res) => {
         });
     });
 });
-
+// buscar usuario por DNI si existe lo devuelve sino muetra error
 app.get('/api/usuarios/:dni', (req, res) => {
     const dni = req.params.dni;
     fs.readFile(USERS_FILE, 'utf8', (err, data) => {
@@ -108,7 +108,7 @@ app.get('/api/usuarios/:dni', (req, res) => {
         res.json(usuario);
     });
 });
-
+// eliminar reserva
 app.delete('/api/reservas', (req, res) => {
     const { laboratorio, fecha, hora } = req.body;
     fs.readFile('reservas.json', 'utf8', (err, data) => {
@@ -125,7 +125,7 @@ app.delete('/api/reservas', (req, res) => {
         });
     });
 });
-
+// iniciar el sevidor
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 }); 

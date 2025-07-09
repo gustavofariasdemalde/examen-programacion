@@ -11,8 +11,8 @@
 <body>
     <div class="container">
         <h1>Realizar reservas</h1>
-        <form id="loginForm">
-            <label>Tipo de usuario:</label><br>
+        <form id="loginForm"> <!-- promulario que capturalos datos-->
+            <label>Tipo de usuario:</label><br> <!-- required obliga a elegir antes de continuar-->
             <div class="radio-group">
                 <div class="radio-option">
                     <input type="radio" name="tipo" value="profesor" required title="Profesor"> <span>Profesor</span>
@@ -27,11 +27,11 @@
             <input type="text" name="dni" id="dni" required placeholder="DNI" maxlength="8" pattern="\d{8}" title="Ingrese 8 dígitos numéricos"><br><br>
             <label for="correo">Correo electrónico:</label><br>
             <input type="email" name="correo" id="correo" required placeholder="Correo electrónico"><br><br>
-            <button type="submit">Continuar</button>
+            <button type="submit">Continuar</button> <!-- type "email" valida el formato automaticamente"-->
         </form>
         <!-- Botón para volver a la página principal -->
         <button onclick="window.location.href='/'" class="small-btn">Volver</button>
     </div>
-    <script src="app.js"></script>
+    <script src="login.js"></script><!-- carga el archivo -->
 </body>
 </html> 

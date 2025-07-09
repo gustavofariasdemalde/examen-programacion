@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- responsive-->
     <title>Sitio de Reservas de Laboratorio</title>
     <link rel="stylesheet" href="style.css">
     <meta name="author" content="Gustavo Farías Demaldé">
@@ -15,13 +15,13 @@
             </div>
             <div class="home-menu">
                 <input type="checkbox" id="menu-toggle" /> <!--para activar y desativar menu hamburguesa-->
-                <label for="menu-toggle" class="menu-icon">
+                <label for="menu-toggle" class="menu-icon"> <!-- menu hamburguesa-->
                     <span></span>
                     <span></span>
                     <span></span>
                 </label>
                 <ul class="menu-list">
-                    <li><a href="listado.html">Ver reservas</a></li>
+                    <li><a href="listado.html">Ver reservas</a></li> 
                     <li><a href="login.html">Gestionar reservas</a></li>
                     <li><a href="admin.html">Administradores</a></li>
                 </ul>
@@ -40,6 +40,7 @@
     <div id="reserva-exito" class="reserva-exito" style="display:none;">
         ¡Reserva realizada con éxito!
     </div>
+    <script src="login.js"></script>
     <script>
     // Mostrar mensaje de éxito si viene de una reserva
     const params = new URLSearchParams(window.location.search);

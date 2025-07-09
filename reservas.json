@@ -52,23 +52,5 @@
     "laboratorio": "LAB 1",
     "fecha": "2025-07-22",
     "hora": "12:00"
-  },
-  {
-    "tipo": "alumno",
-    "nombre": "Gustavo Farias",
-    "dni": "22054729",
-    "correo": "fariasdemaldegustavo@gmail.com",
-    "laboratorio": "LAB 1",
-    "fecha": "2025-07-12",
-    "hora": "09:00"
-  },
-  {
-    "tipo": "alumno",
-    "nombre": "Gustavo Farias",
-    "dni": "22054729",
-    "correo": "fariasdemaldegustavo@gmail.com",
-    "laboratorio": "LAB 1",
-    "fecha": "2025-07-17",
-    "hora": "11:00"
   }
 ]
