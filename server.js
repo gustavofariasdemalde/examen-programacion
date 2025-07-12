@@ -41,8 +41,22 @@ app.get('/api/reservas/futuras', (req, res) => {
     });
 });
 // guarda nueva reserva, si esta autorizado lo agrega en reservas.json
-app.post('/api/reservas', (req, res) => {
+app.post('/api/reservas', (req, res) => {//recibe una solicitud POST
     const nuevaReserva = req.body;
+    
+    // Validar que la fecha no sea superior a 30 días en el futuro
+    const fechaReserva = new Date(nuevaReserva.fecha);
+    const hoy = new Date();
+    const diffDias = (fechaReserva - hoy) / (1000 * 60 * 60 * 24);
+    
+    if (diffDias < 0) {
+        return res.status(400).json({ error: 'No se pueden hacer reservas en fechas pasadas.' });
+    }
+    
+    if (diffDias > 30) {
+        return res.status(400).json({ error: 'No se pueden hacer reservas con más de 30 días de anticipación.' });
+    }
+    
     fs.readFile(USERS_FILE, 'utf8', (err, data) => {
         if (err) return res.status(500).json({ error: 'Error leyendo usuarios' });
         const usuarios = JSON.parse(data);
@@ -127,5 +141,5 @@ app.delete('/api/reservas', (req, res) => {
 });
 // iniciar el sevidor
 app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);// muestra el mensaje en el navegador
 }); 

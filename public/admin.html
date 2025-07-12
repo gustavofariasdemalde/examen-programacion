@@ -27,12 +27,12 @@
             <input type="text" name="dni" id="dni" required placeholder="DNI" maxlength="8"><br><br>
             <button type="submit">Autorizar</button>
         </form>
-        <div id="dniMsg"></div>
+        <div id="dniMsg"></div>// muestra el mensaje de autorizacion
         <button onclick="window.location.href='/'" class="small-btn">Volver al inicio</button>
     </div>
     <div class="container" id="adminPanelContainer" style="display:none;">
         <h1>Agregar Usuario</h1>
-        <form id="adminAddUserForm">
+        <form id="adminAddUserForm">// formulario para agregar usuario
             <label for="nombre">Nombre:</label><br>
             <input type="text" name="nombre" id="nombre" required placeholder="Nombre"><br><br>
             <label for="correo">Correo electrónico:</label><br>
@@ -56,7 +56,7 @@
     // Acceso administrador
     document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const clave = document.getElementById('adminDni').value;
+        const clave = document.getElementById('adminDni').value; // obtiene el valor del campo clave
         const msg = document.getElementById('adminLoginMsg');
         if (clave !== 'admin') {
             msg.innerHTML = '<span style="color:red">Clave incorrecta</span>';
@@ -83,11 +83,11 @@
             } else {
                 // Agregar usuario solo con DNI
                 const addRes = await fetch('/api/usuarios', {
-                    method: 'POST',
+                    method: 'POST', // metodo para agregar solicitud
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nombre: '', correo: '', dni, tipo: 'alumno' })
                 });
-                if (addRes.ok) {
+                if (addRes.ok) { // si la solicitud es exitosa  
                     msg.innerHTML = '<span style="color:green">Usuario autorizado</span>';
                 } else {
                     msg.innerHTML = '<span style="color:red">Error al autorizar usuario</span>';
@@ -152,7 +152,7 @@
             tablaDiv.innerHTML = '<span style="color:red">Error cargando reservas</span>';
         }
     }
-    async function eliminarReserva(laboratorio, fecha, hora) {
+    async function eliminarReserva(laboratorio, fecha, hora) {// esta función elimina la reserva
         if (!confirm('¿Está seguro de eliminar esta reserva?')) return;
         try {
             const res = await fetch('/api/reservas', {
