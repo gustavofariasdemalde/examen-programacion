@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {//espera que esté cargada 
         e.preventDefault();
         const laboratorio = reservaForm.laboratorio.value;
         const fecha = reservaForm.fecha.value;
-        const hora = reservaForm.hora.value;
+        const turno = reservaForm.turno.value;
+        const materia = reservaForm.materia.value;
         
         // Validar que la fecha no sea superior a 30 días en el futuro
         const fechaSeleccionada = new Date(fecha);
@@ -42,20 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {//espera que esté cargada 
             return;
         }
         
-        // Verificar disponibilidad antes de enviar
-        try {
-            const res = await fetch('/api/reservas');// hace la peticion a la api
-            const reservas = await res.json();
-            const ocupado = reservas.some(r => r.laboratorio === laboratorio && r.fecha === fecha && r.hora === hora);
-            if (ocupado) {
-                mensaje.innerHTML = '<span style="color:red">El laboratorio ya está reservado para ese horario.</span>';
-                return;
-            }
-        } catch (err) {
-            mensaje.innerHTML = '<span style="color:red">No se pudo verificar la disponibilidad.</span>';
-            return;
-        }
-        const reserva = { ...usuario, laboratorio, fecha, hora };
+        const reserva = { ...usuario, materia, laboratorio, fecha, turno };
         try {
             const res = await fetch('/api/reservas', {
                 method: 'POST',
@@ -64,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {//espera que esté cargada 
             });
             const data = await res.json();
             if (res.ok) {
-                // Si la reserva es exitosa, redirige a la página principal con un mensaje de éxito
                 window.location.href = '/?reserva=ok';
             } else {
                 mensaje.innerHTML = '<span style="color:red">' + (data.error || 'Error al reservar') + '</span>';

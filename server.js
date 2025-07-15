@@ -67,6 +67,11 @@ app.post('/api/reservas', (req, res) => {//recibe una solicitud POST
         fs.readFile('reservas.json', 'utf8', (err, data) => {
             if (err) return res.status(500).json({ error: 'Error leyendo reservas' });
             const reservas = JSON.parse(data);
+            // Validar que no exista ya una reserva para ese laboratorio, fecha y turno
+            const ocupado = reservas.some(r => r.laboratorio === nuevaReserva.laboratorio && r.fecha === nuevaReserva.fecha && r.turno === nuevaReserva.turno);
+            if (ocupado) {
+                return res.status(400).json({ error: 'El laboratorio ya está reservado para ese turno.' });
+            }
             reservas.push(nuevaReserva);
             fs.writeFile('reservas.json', JSON.stringify(reservas, null, 2), err => {
                 if (err) return res.status(500).json({ error: 'Error guardando reserva' });
@@ -82,7 +87,7 @@ app.post('/api/reservas', (req, res) => {//recibe una solicitud POST
                     from: 'fariasdemaldegustavo@gmail.com',
                     to: nuevaReserva.correo,
                     subject: 'Confirmación de Reserva de Laboratorio',
-                    text: `Hola ${nuevaReserva.nombre},\n\nTu reserva para el ${nuevaReserva.laboratorio} el día ${nuevaReserva.fecha} a las ${nuevaReserva.hora} ha sido confirmada.\n\nGracias.`
+                    text: `Hola ${nuevaReserva.nombre}, usted ha realizado la reserva para la materia ${nuevaReserva.materia} en el ${nuevaReserva.laboratorio} el día ${nuevaReserva.fecha} en el turno ${nuevaReserva.turno}.\n\nGracias.`
                 };
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
@@ -124,12 +129,12 @@ app.get('/api/usuarios/:dni', (req, res) => {
 });
 // eliminar reserva
 app.delete('/api/reservas', (req, res) => {
-    const { laboratorio, fecha, hora } = req.body;
+    const { laboratorio, fecha, turno } = req.body;
     fs.readFile('reservas.json', 'utf8', (err, data) => {
         if (err) return res.status(500).json({ error: 'Error leyendo reservas' });
         let reservas = JSON.parse(data);
         const originalLength = reservas.length;
-        reservas = reservas.filter(r => !(r.laboratorio === laboratorio && r.fecha === fecha && r.hora === hora));
+        reservas = reservas.filter(r => !(r.laboratorio === laboratorio && r.fecha === fecha && r.turno === turno));
         if (reservas.length === originalLength) {
             return res.status(404).json({ error: 'Reserva no encontrada' });
         }

@@ -19,10 +19,21 @@
                 <option value="LAB 3">LAB 3</option>
                 <option value="LAB 4">LAB 4</option>
             </select><br><br>
+        
+            <label for="materia">Materia:</label><br>
+            <input type="text" name="materia" id="materia" required title="Ingrese la materia"><br><br>
             <label for="fecha">Fecha:</label><br>
             <input type="date" name="fecha" id="fecha" required title="Seleccione la fecha" min="" max=""><br><br>
-            <label for="hora">Hora:</label><br>
-            <input type="time" name="hora" id="hora" required title="Seleccione la hora" min="08:00" max="21:00" step="3600"><br><br>
+            <label for="hora">Turno:</label><br>
+            <select name="turno" id="turno" required title="Seleccione un turno">
+                <option value="8 a 10">8 a 10</option>
+                <option value="10 a 12">10 a 12</option>
+                <option value="12 a 14">12 a 14</option>
+                <option value="14 a 16">14 a 16</option>
+                <option value="16 a 18">16 a 18</option>
+                <option value="18 a 20">18 a 20</option>
+                <option value="20 a 22">20 a 22</option>
+            </select><br><br>
             <button type="submit">Confirmar Reserva</button>
         </form>
         <!-- Botón para volver a la página principal -->
