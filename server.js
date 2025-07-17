@@ -110,7 +110,7 @@ app.post('/api/usuarios', (req, res) => {
             return res.status(400).json({ error: 'El usuario ya existe' });
         }
         usuarios.push(nuevoUsuario);
-        fs.writeFile(USERS_FILE, JSON.stringify(usuarios, null, 2), err => {
+        fs.writeFile(USERS_FILE, JSON.stringify(usuarios, null, 2), err => { // stringify convierte el array a srting para guardarlo en el archivo
             if (err) return res.status(500).json({ error: 'Error guardando usuario' });
             res.status(201).json(nuevoUsuario);
         });
@@ -121,10 +121,10 @@ app.get('/api/usuarios/:dni', (req, res) => {
     const dni = req.params.dni;
     fs.readFile(USERS_FILE, 'utf8', (err, data) => {
         if (err) return res.status(500).json({ error: 'Error leyendo usuarios' });
-        const usuarios = JSON.parse(data);
+        const usuarios = JSON.parse(data);//convierte el archivo en un array
         const usuario = usuarios.find(u => u.dni === dni);
         if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
-        res.json(usuario);
+        res.json(usuario);// devuelve el usuario encontrado
     });
 });
 // eliminar reserva
@@ -133,14 +133,14 @@ app.delete('/api/reservas', (req, res) => {
     fs.readFile('reservas.json', 'utf8', (err, data) => {
         if (err) return res.status(500).json({ error: 'Error leyendo reservas' });
         let reservas = JSON.parse(data);
-        const originalLength = reservas.length;
+        const originalLength = reservas.length;// guarda la longitud del array
         reservas = reservas.filter(r => !(r.laboratorio === laboratorio && r.fecha === fecha && r.turno === turno));
         if (reservas.length === originalLength) {
             return res.status(404).json({ error: 'Reserva no encontrada' });
         }
         fs.writeFile('reservas.json', JSON.stringify(reservas, null, 2), err => {
             if (err) return res.status(500).json({ error: 'Error eliminando reserva' });
-            res.json({ ok: true });
+            res.json({ ok: true });// devuelve un objeto con ok true
         });
     });
 });

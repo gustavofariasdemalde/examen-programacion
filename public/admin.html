@@ -27,9 +27,15 @@
             <input type="text" name="dni" id="dni" required placeholder="DNI" maxlength="8"><br><br>
             <button type="submit">Autorizar</button>
         </form>
-        <div id="dniMsg"></div>// muestra el mensaje de autorizacion
+        <div id="dniMsg"></div>
         <button onclick="window.location.href='/'" class="small-btn">Volver al inicio</button>
     </div>
+    <!--
+    La siguiente sección permite al admin crear usuarios completos (nombre, correo, tipo, DNI).
+    Esta funcionalidad está de más porque en el flujo actual los usuarios pueden ingresar sus propios datos al hacer login,
+    y el sistema no valida que coincidan con los datos cargados por el admin. Por lo tanto, no es necesario que el admin cree usuarios completos.
+    -->
+    <!--
     <div class="container" id="adminPanelContainer" style="display:none;">
         <h1>Agregar Usuario</h1>
         <form id="adminAddUserForm">// formulario para agregar usuario
@@ -47,6 +53,7 @@
         <div id="adminMsg"></div>
         <button onclick="window.location.href='/'" class="small-btn">Volver al inicio</button>
     </div>
+    -->
     <div class="container" id="eliminarReservaContainer" style="display:none;">
         <h1>Eliminar Reserva</h1>
         <div id="tablaReservasAdmin"></div>
@@ -97,7 +104,8 @@
             msg.innerHTML = '<span style="color:red">Error de conexión</span>';
         }
     });
-    // Agregar usuario
+    // La siguiente función permite al admin crear usuarios completos, pero está de más por el motivo explicado arriba.
+    /*
     document.getElementById('adminAddUserForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const dni = document.getElementById('dniHidden').value;
@@ -121,19 +129,27 @@
             document.getElementById('adminMsg').innerHTML = '<span style="color:red">Error de conexión</span>';
         }
     });
+    */
     // Eliminar reservas
     async function cargarReservasAdmin() {// esta funcion carga las reservas
         const tablaDiv = document.getElementById('tablaReservasAdmin');
         tablaDiv.innerHTML = 'Cargando reservas...';
         try {
             const res = await fetch('/api/reservas');
-            const reservas = await res.json();
+            let reservas = await res.json();
+            // Filtrar solo reservas futuras (fecha >= hoy)
+            const hoy = new Date();
+            reservas = reservas.filter(r => {
+                const fechaReserva = new Date(r.fecha);
+                // Solo mostrar reservas de hoy en adelante
+                return fechaReserva >= new Date(hoy.toDateString());
+            });
             if (!Array.isArray(reservas) || reservas.length === 0) {
                 tablaDiv.innerHTML = '<span style="color:gray">No hay reservas registradas.</span>';
                 return;
             }
             let html = `<table class='tabla-azul' style='width:100%;margin-top:20px;'>
-                <thead><tr><th>Tipo</th><th>Nombre</th><th>DNI</th><th>Correo</th><th>Laboratorio</th><th>Fecha</th><th>Hora</th><th>Acción</th></tr></thead><tbody>`;
+                <thead><tr><th>Tipo</th><th>Nombre</th><th>DNI</th><th>Correo</th><th>Laboratorio</th><th>Fecha</th><th>Turno</th><th>Acción</th></tr></thead><tbody>`;
             for (const r of reservas) {
                 html += `<tr>
                     <td>${r.tipo}</td>
@@ -142,8 +158,8 @@
                     <td>${r.correo}</td>
                     <td>${r.laboratorio}</td>
                     <td>${r.fecha}</td>
-                    <td>${r.hora}</td>
-                    <td><button onclick="eliminarReserva('${r.laboratorio}','${r.fecha}','${r.hora}')" style='background:#dc3545'>Eliminar</button></td>
+                    <td>${r.turno}</td>
+                    <td><button onclick="eliminarReserva('${r.laboratorio}','${r.fecha}','${r.turno}')" style='background:#dc3545'>Eliminar</button></td>
                 </tr>`;
             }
             html += '</tbody></table>';
@@ -152,13 +168,13 @@
             tablaDiv.innerHTML = '<span style="color:red">Error cargando reservas</span>';
         }
     }
-    async function eliminarReserva(laboratorio, fecha, hora) {// esta función elimina la reserva
+    async function eliminarReserva(laboratorio, fecha, turno) {// esta función elimina la reserva
         if (!confirm('¿Está seguro de eliminar esta reserva?')) return;
         try {
             const res = await fetch('/api/reservas', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ laboratorio, fecha, hora })
+                body: JSON.stringify({ laboratorio, fecha, turno }) // Usar 'turno' en vez de 'hora'
             });
             if (res.ok) {
                 cargarReservasAdmin();// carga las reservas actualizadas

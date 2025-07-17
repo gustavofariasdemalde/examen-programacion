@@ -1,22 +1,22 @@
 [
   {
     "tipo": "alumno",
-    "nombre": "Gustavo Farias",
-    "dni": "22054729",
-    "correo": "fariasdemaldegustavo@gmail.com",
-    "materia": "Programación",
-    "laboratorio": "LAB 1",
-    "fecha": "2025-07-16",
-    "turno": "8 a 10"
-  },
-  {
-    "tipo": "alumno",
     "nombre": "Laura Zapata",
     "dni": "25634963",
     "correo": "laurazapata1003@gmail.com",
     "materia": "Programación",
     "laboratorio": "LAB 1",
-    "fecha": "2025-08-14",
+    "fecha": "2025-07-29",
+    "turno": "8 a 10"
+  },
+  {
+    "tipo": "alumno",
+    "nombre": "Gustavo Farias",
+    "dni": "22054729",
+    "correo": "fariasdemaldegustavo@gmail.com",
+    "materia": "Programación",
+    "laboratorio": "LAB 4",
+    "fecha": "2025-07-31",
     "turno": "8 a 10"
   }
 ]

@@ -1,3 +1,15 @@
+/*
+style.css - Hoja de estilos principal para la app de reservas de laboratorio
+
+- Define estilos base para el body, títulos, formularios y contenedores.
+- Utiliza la fuente 'Poppins' para los títulos y un diseño moderno y limpio.
+- Incluye estilos para el layout principal, menú hamburguesa, botones y tablas.
+- Aplica colores distintivos para resaltar elementos importantes (violeta, azul, blanco).
+- Contiene reglas responsivas para adaptar el diseño a pantallas pequeñas (media queries).
+- Estilos personalizados para mensajes de éxito, radio buttons y descripciones de laboratorios.
+- Utiliza clases reutilizables como .container, .small-btn, .tabla-azul, .home-header, etc.
+- El diseño busca ser claro, accesible y fácil de usar tanto en escritorio como en móvil.
+*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 body {
     font-family: Arial, sans-serif;

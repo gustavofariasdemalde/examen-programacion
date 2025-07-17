@@ -37,18 +37,18 @@
             </div>
         </div>
     </div>
-    <div id="reserva-exito" class="reserva-exito" style="display:none;">
+    <div id="reserva-exito" class="reserva-exito" style="display:none;"> 
         ¡Reserva realizada con éxito!
     </div>
-    <script src="login.js"></script>
-    <script>
+    <script src="login.js"></script> 
+    <script> 
     // Mostrar mensaje de éxito si viene de una reserva
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search); //para obtener datos de la url,crea un objeto para obtener los valores que vienen del navegador
     if(params.get('reserva') === 'ok') {
-        const exito = document.getElementById('reserva-exito');
-        exito.style.display = 'flex';
+        const exito = document.getElementById('reserva-exito'); // accede desde JS a un elemento HTML
+        exito.style.display = 'flex'; //para mostrar el mensaje
         setTimeout(() => {
-            exito.style.display = 'none';
+        exito.style.display = 'none';// esta oculto el mensaje ¡Reserva con exito! y se muestra cuando?reserva==ok
         }, 10500);
     }
     </script>
